@@ -2,7 +2,7 @@ terraform {
   # Assumes s3 bucket and dynamo DB table already set up
   # See /code/03-basics/aws-backend
   backend "s3" {
-    bucket         = "devops-directive-tf-state"
+    bucket         = "devops-directive-tf-state-rbndemo"
     key            = "03-basics/web-app/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "terraform-state-locking"
@@ -18,12 +18,12 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-north-1"
 }
 
 resource "aws_instance" "instance_1" {
-  ami             = "ami-011899242bb902164" # Ubuntu 20.04 LTS // us-east-1
-  instance_type   = "t2.micro"
+  ami             = "ami-09a9858973b288bdd" # Ubuntu 24.04 LTS // us-east-1
+  instance_type   = "t3.micro"
   security_groups = [aws_security_group.instances.name]
   user_data       = <<-EOF
               #!/bin/bash
@@ -33,8 +33,8 @@ resource "aws_instance" "instance_1" {
 }
 
 resource "aws_instance" "instance_2" {
-  ami             = "ami-011899242bb902164" # Ubuntu 20.04 LTS // us-east-1
-  instance_type   = "t2.micro"
+  ami             = "ami-09a9858973b288bdd" # Ubuntu 24.04 LTS // us-east-1
+  instance_type   = "t3.micro"
   security_groups = [aws_security_group.instances.name]
   user_data       = <<-EOF
               #!/bin/bash
@@ -211,8 +211,8 @@ resource "aws_db_instance" "db_instance" {
   auto_minor_version_upgrade = true
   storage_type               = "standard"
   engine                     = "postgres"
-  engine_version             = "12"
-  instance_class             = "db.t2.micro"
+  engine_version             = "17"
+  instance_class             = "db.t3.micro" # it only works on db.t2.2large
   name                       = "mydb"
   username                   = "foo"
   password                   = "foobarbaz"
