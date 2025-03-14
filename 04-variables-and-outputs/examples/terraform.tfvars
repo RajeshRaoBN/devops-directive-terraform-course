@@ -1,3 +1,3 @@
 instance_name = "hello-world"
-ami           = "ami-011899242bb902164" # Ubuntu 20.04 LTS // us-east-1
-instance_type = "t2.micro"
+ami           = "ami-09a9858973b288bdd" # Ubuntu 24.04 LTS // eu-north-1
+instance_type = "t3.micro"
